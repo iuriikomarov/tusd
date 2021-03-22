@@ -31,7 +31,7 @@ This event will be triggered before an upload is created, allowing you to run ce
 
 ### post-create
 
-This event will be triggered after an upload is created, allowing you to run certain routines. For example, notifying other parts of your system that a new upload has to be handled. At this point the upload may have received some data already since the invocation of these hooks may be delayed by a short duration. 
+This event will be triggered after an upload is created, allowing you to run certain routines. For example, notifying other parts of your system that a new upload has to be handled. At this point the upload may have received some data already since the invocation of these hooks may be delayed by a short duration.
 
 ### pre-finish
 
@@ -141,7 +141,7 @@ $ tusd --hooks-http http://localhost:8081/write
 
 Note that the URL must include the `http://` or `https://` prefix!
 
-In case of a blocking hook, HTTP Status Code 400 or greater tells tusd to reject the request (in the same way as non-zero exit code for File Hooks). See also [issue #170](https://github.com/tus/tusd/issues/170) regarding further improvements.
+In case of a blocking hook, HTTP Status Code 400 or greater tells tusd to reject the request (in the same way as non-zero exit code for File Hooks). See also [issue #170](https://github.com/iuriikomarov/tusd/issues/170) regarding further improvements.
 
 Headers from the client's upload request can be copied to the hook request with the `-hooks-http-forward-headers` flag.
 This is particularly useful for including authentication headers such as `Authorization` or `Cookie`.

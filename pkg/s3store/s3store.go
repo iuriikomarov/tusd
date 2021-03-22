@@ -83,8 +83,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tus/tusd/internal/uid"
-	"github.com/tus/tusd/pkg/handler"
+	"github.com/iuriikomarov/tusd/internal/uid"
+	"github.com/iuriikomarov/tusd/pkg/handler"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
@@ -158,6 +158,8 @@ type S3Store struct {
 	// CPU, so it might be desirable to disable them.
 	// Note that this property is experimental and might be removed in the future!
 	DisableContentHashes bool
+	// GetObjectName is a custom object name getter
+	GetObjectId func(info handler.FileInfo) string
 }
 
 type S3API interface {
@@ -189,6 +191,9 @@ func New(bucket string, service S3API) S3Store {
 		MaxObjectSize:      5 * 1024 * 1024 * 1024 * 1024,
 		MaxBufferedParts:   20,
 		TemporaryDirectory: "",
+		GetObjectId: func(_ handler.FileInfo) string {
+			return uid.Uid()
+		},
 	}
 }
 
@@ -219,7 +224,7 @@ func (store S3Store) NewUpload(ctx context.Context, info handler.FileInfo) (hand
 
 	var uploadId string
 	if info.ID == "" {
-		uploadId = uid.Uid()
+		uploadId = store.GetObjectId(info)
 	} else {
 		// certain tests set info.ID in advance
 		uploadId = info.ID

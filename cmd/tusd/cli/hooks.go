@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/tus/tusd/cmd/tusd/cli/hooks"
-	"github.com/tus/tusd/pkg/handler"
+	"github.com/iuriikomarov/tusd/cmd/tusd/cli/hooks"
+	"github.com/iuriikomarov/tusd/pkg/handler"
 )
 
 var hookHandler hooks.HookHandler = nil
